@@ -1,3 +1,44 @@
+# Beacon iOS Chat UI
+
+> **Fork Notice:** This is a fork of [ExyteChat](https://github.com/exyte/Chat) maintained by the Beacon project for integration with Beacon's secure P2P messaging platform. Original work by [Exyte](https://github.com/exyte).
+
+## About This Fork
+
+This repository contains a customized version of the ExyteChat library, tailored specifically for [Beacon](https://github.com/mgoody55/Beacon-CrossPlatform)'s design requirements and P2P messaging features. We maintain compatibility with the upstream ExyteChat library while adding Beacon-specific enhancements.
+
+- **Beacon Project:** https://github.com/mgoody55/Beacon-CrossPlatform
+- **This Fork:** https://github.com/mgoody55/beacon-ios-chat-ui
+- **Original Library:** https://github.com/exyte/Chat
+- **License:** MIT (see LICENSE file)
+
+## Installation for Beacon
+
+Add this fork to your Swift Package Manager dependencies:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/mgoody55/beacon-ios-chat-ui.git", branch: "main")
+]
+```
+
+The module name remains `ExyteChat` for compatibility with the original library:
+
+```swift
+import ExyteChat
+```
+
+## Beacon-Specific Modifications
+
+See [BEACON_MODIFICATIONS.md](BEACON_MODIFICATIONS.md) for a complete list of customizations and enhancements made for the Beacon project.
+
+For more information about this fork, see [FORK_NOTICE.md](FORK_NOTICE.md).
+
+---
+
+# Original ExyteChat Documentation
+
+Below is the original documentation from Exyte's Chat library:
+
 <a href="https://exyte.com/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/exyte/media/master/common/header-dark.png"><img src="https://raw.githubusercontent.com/exyte/media/master/common/header-light.png"></picture></a>
 
 <a href="https://exyte.com/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/exyte/media/master/common/our-site-dark.png" width="80" height="16"><img src="https://raw.githubusercontent.com/exyte/media/master/common/our-site-light.png" width="80" height="16"></picture></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://twitter.com/exyteHQ"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/exyte/media/master/common/twitter-dark.png" width="74" height="16"><img src="https://raw.githubusercontent.com/exyte/media/master/common/twitter-light.png" width="74" height="16">

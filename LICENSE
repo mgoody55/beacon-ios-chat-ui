@@ -1,3 +1,5 @@
+MIT License
+
 Copyright (c) 2019 exyte <info@exyte.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -17,3 +19,20 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+---
+
+## Beacon Fork Modifications
+
+This repository is a fork maintained by the Beacon project at:
+https://github.com/mgoody55/beacon-ios-chat-ui
+
+Modifications for Beacon project:
+Copyright (c) 2024 Beacon Contributors
+
+Beacon-specific modifications are also distributed under the MIT License terms above.
+All modifications maintain compatibility with the original ExyteChat library and
+properly attribute the original work to Exyte.
+
+For details on Beacon-specific modifications, see BEACON_MODIFICATIONS.md
+For information about this fork, see FORK_NOTICE.md
