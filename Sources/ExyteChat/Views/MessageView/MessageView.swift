@@ -224,29 +224,7 @@ struct MessageView: View {
 
     @ViewBuilder
     var avatarView: some View {
-        Group {
-            if showAvatar {
-                if let url = message.user.avatarURL {
-                    AvatarImageView(url: url, avatarSize: avatarSize, avatarCacheKey: message.user.avatarCacheKey)
-                        .contentShape(Circle())
-                        .onTapGesture {
-                            tapAvatarClosure?(message.user, message.id)
-                        }
-                } else {
-                    AvatarNameView(name: message.user.name, avatarSize: avatarSize)
-                        .contentShape(Circle())
-                        .onTapGesture {
-                            tapAvatarClosure?(message.user, message.id)
-                        }
-                }
-            }
-        }
-        .applyIf(showAvatar) {
-            $0
-                .padding(.leading, MessageView.horizontalScreenEdgePadding)
-                .padding(.trailing, MessageView.horizontalAvatarPadding)
-        }
-        .sizeGetter($avatarViewSize)
+        EmptyView()
     }
 
     @ViewBuilder
