@@ -239,13 +239,13 @@ struct MessageView: View {
                             tapAvatarClosure?(message.user, message.id)
                         }
                 }
-
-            } else {
-                Color.clear.viewSize(avatarSize)
             }
         }
-        .padding(.leading, MessageView.horizontalScreenEdgePadding)
-        .padding(.trailing, MessageView.horizontalAvatarPadding)
+        .applyIf(showAvatar) {
+            $0
+                .padding(.leading, MessageView.horizontalScreenEdgePadding)
+                .padding(.trailing, MessageView.horizontalAvatarPadding)
+        }
         .sizeGetter($avatarViewSize)
     }
 
