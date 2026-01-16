@@ -14,6 +14,7 @@ public struct Message: Identifiable, Hashable, Sendable {
         case sent
         case read
         case error(DraftMessage)
+        case queued
 
         public func hash(into hasher: inout Hasher) {
             switch self {
@@ -25,6 +26,8 @@ public struct Message: Identifiable, Hashable, Sendable {
                 return hasher.combine("read")
             case .error:
                 return hasher.combine("error")
+            case .queued:
+                return hasher.combine("queued")
             }
         }
 
@@ -37,6 +40,8 @@ public struct Message: Identifiable, Hashable, Sendable {
             case (.read, .read):
                 return true
             case ( .error(_), .error(_)):
+                return true
+            case (.queued, .queued):
                 return true
             default:
                 return false
@@ -56,6 +61,8 @@ public struct Message: Identifiable, Hashable, Sendable {
     public var recording: Recording?
     public var replyMessage: ReplyMessage?
 
+    public var transport: String?
+
     public var triggerRedraw: UUID?
 
     public init(id: String,
@@ -67,7 +74,8 @@ public struct Message: Identifiable, Hashable, Sendable {
                 giphyMediaId: String? = nil,
                 reactions: [Reaction] = [],
                 recording: Recording? = nil,
-                replyMessage: ReplyMessage? = nil) {
+                replyMessage: ReplyMessage? = nil,
+                transport: String? = nil) {
 
         self.id = id
         self.user = user
@@ -79,6 +87,7 @@ public struct Message: Identifiable, Hashable, Sendable {
         self.reactions = reactions
         self.recording = recording
         self.replyMessage = replyMessage
+        self.transport = transport
     }
 
     public static func makeMessage(

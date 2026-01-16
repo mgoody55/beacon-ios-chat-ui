@@ -9,9 +9,17 @@ struct MessageTimeView: View {
     let text: String
     let userType: UserType
     var chatTheme: ChatTheme
+    let transport: String?
+
+    var displayText: String {
+        if let transport = transport {
+            return "\(text) via \(transport)"
+        }
+        return text
+    }
 
     var body: some View {
-        Text(text)
+        Text(displayText)
             .font(.caption)
             .foregroundColor(chatTheme.colors.messageTimeText(userType))
     }
@@ -22,9 +30,17 @@ struct MessageTimeWithCapsuleView: View {
     let text: String
     let isCurrentUser: Bool
     var chatTheme: ChatTheme
+    let transport: String?
+
+    var displayText: String {
+        if let transport = transport {
+            return "\(text) via \(transport)"
+        }
+        return text
+    }
 
     var body: some View {
-        Text(text)
+        Text(displayText)
             .font(.caption)
             .foregroundColor(.white)
             .opacity(0.8)

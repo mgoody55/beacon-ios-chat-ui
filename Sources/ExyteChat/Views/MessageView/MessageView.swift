@@ -55,34 +55,6 @@ struct MessageView: View {
     }
 
     var dateArrangement: DateArrangement {
-        let timeWidth = timeSize.width + 10
-        let textPaddings = MessageView.horizontalTextPadding * 2
-        let widthWithoutMedia =
-            UIScreen.main.bounds.width
-            - (message.user.isCurrentUser
-                ? MessageView.horizontalNoAvatarPadding : avatarViewSize.width)
-            - statusSize.width
-            - MessageView.horizontalBubblePadding
-            - textPaddings
-
-        let maxWidth =
-            message.attachments.isEmpty
-            ? widthWithoutMedia : MessageView.widthWithMedia - textPaddings
-        let styledText = message.text.styled(using: messageStyler)
-
-        let finalWidth = styledText.width(withConstrainedWidth: maxWidth, font: font)
-        let lastLineWidth = styledText.lastLineWidth(labelWidth: maxWidth, font: font)
-        let numberOfLines = styledText.numberOfLines(labelWidth: maxWidth, font: font)
-
-        if !styledText.urls.isEmpty && messageLinkPreviewLimit > 0 {
-            return .vstack
-        }
-        if numberOfLines == 1, finalWidth + CGFloat(timeWidth) < maxWidth {
-            return .hstack
-        }
-        if lastLineWidth + CGFloat(timeWidth) < finalWidth {
-            return .overlay
-        }
         return .vstack
     }
 
@@ -135,6 +107,7 @@ struct MessageView: View {
         }
         .padding(.top, topPadding)
         .padding(.bottom, bottomPadding)
+        .padding(.leading, message.user.isCurrentUser ? 0 : 14)
         .padding(.trailing, message.user.isCurrentUser ? MessageView.horizontalNoAvatarPadding : 0)
         .padding(
             message.user.isCurrentUser ? .leading : .trailing, MessageView.horizontalBubblePadding
@@ -286,10 +259,15 @@ struct MessageView: View {
                 }
                 .padding(.vertical, 8)
             case .vstack:
-                VStack(alignment: .trailing, spacing: 4) {
+                VStack(alignment: .leading, spacing: 4) {
                     messageView
-                    timeView
+                    HStack(spacing: 0) {
+                        Spacer(minLength: 0)
+                        timeView
+                            .fixedSize(horizontal: true, vertical: false)
+                    }
                 }
+                .frame(minWidth: 140, maxWidth: 250)
                 .padding(.vertical, 8)
             case .overlay:
                 messageView
@@ -322,10 +300,11 @@ struct MessageView: View {
                 if needsCapsule {
                     MessageTimeWithCapsuleView(
                         text: message.time, isCurrentUser: message.user.isCurrentUser,
-                        chatTheme: theme)
+                        chatTheme: theme, transport: message.transport)
                 } else {
                     MessageTimeView(
-                        text: message.time, userType: message.user.type, chatTheme: theme)
+                        text: message.time, userType: message.user.type, chatTheme: theme,
+                        transport: message.transport)
                 }
             }
         }

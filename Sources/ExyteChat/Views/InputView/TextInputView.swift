@@ -35,4 +35,3 @@ struct TextInputView: View {
         || availableInputs.contains(AvailableInputType.giphy)
     }
 }
-

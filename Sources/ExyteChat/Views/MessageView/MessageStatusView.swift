@@ -34,6 +34,10 @@ struct MessageStatusView: View {
                         .resizable()
                 }
                 .foregroundColor(theme.colors.statusError)
+            case .queued:
+                Image(systemName: "clock.fill")
+                    .resizable()
+                    .foregroundColor(.yellow)
             }
         }
         .viewSize(MessageView.statusViewSize)

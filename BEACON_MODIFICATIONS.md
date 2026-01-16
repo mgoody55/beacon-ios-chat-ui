@@ -23,6 +23,31 @@ This document tracks all Beacon-specific customizations and enhancements made to
 
 **Rationale:** Establish clear fork identity while maintaining full compatibility with upstream ExyteChat.
 
+### Transport Display in Message Timestamps (November 2024)
+
+**Feature:** Display transport type in message timestamps
+
+**Changes Made:**
+- Added `transport: String?` property to `Message` model
+- Updated `Message` initializer to accept optional transport parameter
+- Modified `MessageTimeView` to display "time via transport" format
+- Modified `MessageTimeWithCapsuleView` to display "time via transport" format
+- Updated `MessageView.messageTimeView()` to pass transport to time views
+
+**Files Modified:**
+- `Sources/ExyteChat/Model/Message.swift` - Added transport property and initializer parameter
+- `Sources/ExyteChat/Views/MessageView/MessageTimeView.swift` - Added transport display logic
+- `Sources/ExyteChat/Views/MessageView/MessageView.swift` - Pass transport to time views
+
+**Beacon Integration:**
+- Beacon app passes transport identifier (e.g., "tcp", "meshtastic") from Rust core
+- Transport names are mapped to user-friendly labels via `TransportChipProvider.standardizedLabel()`
+- Displays formats like "2:30 PM via LAN" or "11:45 AM via Mesh"
+
+**Rationale:** Provides users with transparency about which transport protocol delivered each message, supporting Beacon's multi-transport architecture (TCP, LoRa mesh, MultipeerConnectivity, Waypoint relay).
+
+**Status:** Implemented
+
 ---
 
 ## Planned Modifications
@@ -131,7 +156,9 @@ When adding modifications:
 
 ### Core Changes
 Modifications to the core ExyteChat library (Sources/ExyteChat/)
-- Currently: None
+- **Message model:** Added `transport: String?` property to track message transport type
+- **MessageTimeView:** Added transport display logic with "time via transport" formatting
+- **MessageView:** Updated to pass transport information to time views
 
 ### Extension Modules
 Additional modules that extend functionality without modifying core
@@ -143,11 +170,11 @@ Custom themes and styling specific to Beacon
 
 ### Model Extensions
 Additional models or extensions to existing models
-- Currently: None
+- **Message:** Added optional `transport` property for transport type display
 
 ### View Extensions
 Custom views or view builders
-- Currently: None
+- **MessageTimeView variants:** Enhanced with transport display capabilities
 
 ---
 
@@ -191,6 +218,6 @@ List any breaking changes from upstream ExyteChat API:
 
 ---
 
-**Last Updated:** November 19, 2024
-**Current Version:** 2.7.4 (baseline, no modifications)
-**Next Planned Release:** TBD (pending Beacon integration requirements)
+**Last Updated:** November 20, 2024
+**Current Version:** 2.7.4 (baseline + transport display modification)
+**Next Planned Release:** TBD (pending additional Beacon integration requirements)
