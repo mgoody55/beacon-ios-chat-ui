@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 public extension EnvironmentValues {
     #if swift(>=6.0)
@@ -142,31 +143,31 @@ public struct ChatTheme {
         public var recordDot: Color
 
         public init(
-            mainBG: Color = Color("mainBG", bundle: .current),
-            mainTint: Color = Color("inputPlaceholderText", bundle: .current),
-            mainText: Color = Color("mainText", bundle: .current),
-            mainCaptionText: Color = Color("mainCaptionText", bundle: .current),
-            messageMyBG: Color = Color("messageMyBG", bundle: .current),
-            messageMyText: Color = Color.white,
-            messageMyTimeText: Color = Color("messageMyTimeText", bundle: .current),
-            messageFriendBG: Color = Color("messageFriendBG", bundle: .current),
-            messageFriendText: Color = Color("mainText", bundle: .current),
-            messageFriendTimeText: Color = Color("messageFriendTimeText", bundle: .current),
-            messageSystemBG: Color = Color("messageFriendBG", bundle: .current),
-            messageSystemText: Color = Color("mainText", bundle: .current),
-            messageSystemTimeText: Color = Color("messageFriendTimeText", bundle: .current),
-            inputBG: Color = Color("inputBG", bundle: .current),
-            inputText: Color = Color("mainText", bundle: .current),
-            inputPlaceholderText: Color = Color("inputPlaceholderText", bundle: .current),
-            inputSignatureBG: Color = Color("inputBG", bundle: .current),
-            inputSignatureText: Color = Color("mainText", bundle: .current),
-            inputSignaturePlaceholderText: Color = Color("inputPlaceholderText", bundle: .current),
-            menuBG: Color = Color("menuBG", bundle: .current),
-            menuText: Color = Color("menuText", bundle: .current),
+            mainBG: Color = Color(uiColor: UIColor(dynamicProvider: { $0.userInterfaceStyle == .dark ? UIColor(hex: "070D14") : UIColor(hex: "FFFFFF") })),
+            mainTint: Color = Color(uiColor: UIColor(dynamicProvider: { $0.userInterfaceStyle == .dark ? UIColor(hex: "B79A3B") : UIColor(hex: "C9A64D") })),
+            mainText: Color = Color(uiColor: UIColor(dynamicProvider: { $0.userInterfaceStyle == .dark ? UIColor(hex: "E4EAF0") : UIColor(hex: "000000") })),
+            mainCaptionText: Color = Color(uiColor: UIColor(dynamicProvider: { $0.userInterfaceStyle == .dark ? UIColor(hex: "9AA6B2") : UIColor(hex: "5F6B78") })),
+            messageMyBG: Color = Color(uiColor: UIColor(dynamicProvider: { $0.userInterfaceStyle == .dark ? UIColor(hex: "1B3147") : UIColor(hex: "B4CAE4") })),
+            messageMyText: Color = Color(uiColor: UIColor(dynamicProvider: { $0.userInterfaceStyle == .dark ? UIColor.white : UIColor.black })),
+            messageMyTimeText: Color = Color(uiColor: UIColor(dynamicProvider: { $0.userInterfaceStyle == .dark ? UIColor(hex: "9AA6B2") : UIColor(hex: "5F6B78") })),
+            messageFriendBG: Color = Color(uiColor: UIColor(dynamicProvider: { $0.userInterfaceStyle == .dark ? UIColor(hex: "0F1B27") : UIColor(hex: "F0F7FF") })),
+            messageFriendText: Color = Color(uiColor: UIColor(dynamicProvider: { $0.userInterfaceStyle == .dark ? UIColor(hex: "E4EAF0") : UIColor(hex: "0E1720") })),
+            messageFriendTimeText: Color = Color(uiColor: UIColor(dynamicProvider: { $0.userInterfaceStyle == .dark ? UIColor(hex: "9AA6B2") : UIColor(hex: "5F6B78") })),
+            messageSystemBG: Color = Color(uiColor: UIColor(dynamicProvider: { $0.userInterfaceStyle == .dark ? UIColor(hex: "0F1B27") : UIColor(hex: "FFFFFF") })),
+            messageSystemText: Color = Color(uiColor: UIColor(dynamicProvider: { $0.userInterfaceStyle == .dark ? UIColor(hex: "E4EAF0") : UIColor(hex: "0E1720") })),
+            messageSystemTimeText: Color = Color(uiColor: UIColor(dynamicProvider: { $0.userInterfaceStyle == .dark ? UIColor(hex: "9AA6B2") : UIColor(hex: "5F6B78") })),
+            inputBG: Color = Color(uiColor: UIColor(dynamicProvider: { $0.userInterfaceStyle == .dark ? UIColor(hex: "0F1B27") : UIColor(hex: "FFFFFF") })),
+            inputText: Color = Color(uiColor: UIColor(dynamicProvider: { $0.userInterfaceStyle == .dark ? UIColor(hex: "E4EAF0") : UIColor(hex: "0E1720") })),
+            inputPlaceholderText: Color = Color(uiColor: UIColor(dynamicProvider: { $0.userInterfaceStyle == .dark ? UIColor(hex: "9AA6B2") : UIColor(hex: "5F6B78") })),
+            inputSignatureBG: Color = Color(uiColor: UIColor(dynamicProvider: { $0.userInterfaceStyle == .dark ? UIColor(hex: "0F1B27") : UIColor(hex: "FFFFFF") })),
+            inputSignatureText: Color = Color(uiColor: UIColor(dynamicProvider: { $0.userInterfaceStyle == .dark ? UIColor(hex: "E4EAF0") : UIColor(hex: "0E1720") })),
+            inputSignaturePlaceholderText: Color = Color(uiColor: UIColor(dynamicProvider: { $0.userInterfaceStyle == .dark ? UIColor(hex: "9AA6B2") : UIColor(hex: "5F6B78") })),
+            menuBG: Color = Color(uiColor: UIColor(dynamicProvider: { $0.userInterfaceStyle == .dark ? UIColor(hex: "0F1B27") : UIColor(hex: "FFFFFF") })),
+            menuText: Color = Color(uiColor: UIColor(dynamicProvider: { $0.userInterfaceStyle == .dark ? UIColor(hex: "E4EAF0") : UIColor(hex: "0E1720") })),
             menuTextDelete: Color = Color("menuTextDelete", bundle: .current),
             statusError: Color = Color("statusError", bundle: .current),
-            statusGray: Color = Color("statusGray", bundle: .current),
-            sendButtonBackground: Color = Color("messageMyBG", bundle: .current),
+            statusGray: Color = Color(uiColor: UIColor(dynamicProvider: { $0.userInterfaceStyle == .dark ? UIColor(hex: "9AA6B2") : UIColor(hex: "5F6B78") })),
+            sendButtonBackground: Color = Color(uiColor: UIColor(dynamicProvider: { $0.userInterfaceStyle == .dark ? UIColor(hex: "1B3147") : UIColor(hex: "122235") })),
             recordDot: Color = Color("menuTextDelete", bundle: .current)
         ) {
             self.mainBG = mainBG
@@ -476,5 +477,22 @@ public struct ChatTheme {
         public init(replyOpacity: Double = 0.8) {
             self.replyOpacity = replyOpacity
         }
+    }
+}
+
+public extension UIColor {
+    convenience init(hex: String, alpha: CGFloat = 1.0) {
+        var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
+        hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
+
+        var rgb: UInt64 = 0
+
+        Scanner(string: hexSanitized).scanHexInt64(&rgb)
+
+        let red = CGFloat((rgb & 0xFF0000) >> 16) / 255.0
+        let green = CGFloat((rgb & 0x00FF00) >> 8) / 255.0
+        let blue = CGFloat(rgb & 0x0000FF) / 255.0
+
+        self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
 }
