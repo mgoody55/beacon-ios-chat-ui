@@ -67,6 +67,7 @@ public struct Message: Identifiable, Hashable, Sendable {
     public var replyMessage: ReplyMessage?
 
     public var transport: String?
+    public var delayedStatus: String?
 
     public var triggerRedraw: UUID?
 
@@ -80,7 +81,8 @@ public struct Message: Identifiable, Hashable, Sendable {
                 reactions: [Reaction] = [],
                 recording: Recording? = nil,
                 replyMessage: ReplyMessage? = nil,
-                transport: String? = nil) {
+                transport: String? = nil,
+                delayedStatus: String? = nil) {
 
         self.id = id
         self.user = user
@@ -93,6 +95,7 @@ public struct Message: Identifiable, Hashable, Sendable {
         self.recording = recording
         self.replyMessage = replyMessage
         self.transport = transport
+        self.delayedStatus = delayedStatus
     }
 
     public static func makeMessage(
@@ -149,7 +152,8 @@ extension Message: Equatable {
         lhs.attachments == rhs.attachments &&
         lhs.reactions == rhs.reactions &&
         lhs.recording == rhs.recording &&
-        lhs.replyMessage == rhs.replyMessage
+        lhs.replyMessage == rhs.replyMessage &&
+        lhs.delayedStatus == rhs.delayedStatus
     }
 }
 

@@ -300,11 +300,11 @@ struct MessageView: View {
                 if needsCapsule {
                     MessageTimeWithCapsuleView(
                         text: message.time, isCurrentUser: message.user.isCurrentUser,
-                        chatTheme: theme, transport: message.transport)
+                        chatTheme: theme, transport: message.transport, delayedStatus: message.delayedStatus)
                 } else {
                     MessageTimeView(
                         text: message.time, userType: message.user.type, chatTheme: theme,
-                        transport: message.transport)
+                        transport: message.transport, delayedStatus: message.delayedStatus)
                 }
             }
         }

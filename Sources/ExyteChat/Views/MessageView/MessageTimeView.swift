@@ -10,6 +10,7 @@ struct MessageTimeView: View {
     let userType: UserType
     var chatTheme: ChatTheme
     let transport: String?
+    let delayedStatus: String?
 
     var displayText: String {
         if let transport = transport {
@@ -19,9 +20,17 @@ struct MessageTimeView: View {
     }
 
     var body: some View {
-        Text(displayText)
-            .font(.caption)
-            .foregroundColor(chatTheme.colors.messageTimeText(userType))
+        VStack(alignment: .trailing, spacing: 0) {
+            Text(displayText)
+                .font(.caption)
+                .foregroundColor(chatTheme.colors.messageTimeText(userType))
+            
+            if let delayedStatus = delayedStatus {
+                Text(delayedStatus)
+                    .font(.caption)
+                    .foregroundColor(chatTheme.colors.messageTimeText(userType))
+            }
+        }
     }
 }
 
@@ -31,6 +40,7 @@ struct MessageTimeWithCapsuleView: View {
     let isCurrentUser: Bool
     var chatTheme: ChatTheme
     let transport: String?
+    let delayedStatus: String?
 
     var displayText: String {
         if let transport = transport {
@@ -40,17 +50,26 @@ struct MessageTimeWithCapsuleView: View {
     }
 
     var body: some View {
-        Text(displayText)
-            .font(.caption)
-            .foregroundColor(.white)
-            .opacity(0.8)
-            .padding(.top, 4)
-            .padding(.bottom, 4)
-            .padding(.horizontal, 8)
-            .background {
-                Capsule()
-                    .foregroundColor(.black.opacity(0.4))
+        VStack(alignment: .trailing, spacing: 0) {
+            Text(displayText)
+                .font(.caption)
+                .foregroundColor(.white)
+                .opacity(0.8)
+            
+            if let delayedStatus = delayedStatus {
+                Text(delayedStatus)
+                    .font(.caption)
+                    .foregroundColor(.white)
+                    .opacity(0.8)
             }
+        }
+        .padding(.top, 4)
+        .padding(.bottom, 4)
+        .padding(.horizontal, 8)
+        .background {
+            Capsule()
+                .foregroundColor(.black.opacity(0.4))
+        }
     }
 }
 
