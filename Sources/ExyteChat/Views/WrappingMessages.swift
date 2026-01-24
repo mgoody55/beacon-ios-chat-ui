@@ -26,21 +26,61 @@ extension ChatView {
     }
 
     nonisolated static func mapMessagesQuoteModeReplies(_ messages: [Message], chatType: ChatType, replyMode: ReplyMode) -> [MessagesSection] {
-        let dates = Set(messages.map({ $0.createdAt.startOfDay() }))
-            .sorted()
-            .reversed()
-        var result: [MessagesSection] = []
+        if messages.isEmpty { return [] }
 
-        for date in dates {
-            let section = MessagesSection(
-                date: date,
-                // use fake isFirstSection/isLastSection because they are not needed for quote replies
-                rows: wrapSectionMessages(messages.filter({ $0.createdAt.isSameDay(date) }), chatType: chatType, replyMode: replyMode, isFirstSection: false, isLastSection: false)
-            )
-            result.append(section)
+        // Sort messages by date to ensure sequential processing
+        let sortedMessages = messages.sorted { $0.createdAt < $1.createdAt }
+        
+        var result: [MessagesSection] = []
+        var currentSectionMessages: [Message] = []
+        var lastMessageDate: Date? = nil
+
+        for message in sortedMessages {
+            let messageDate = message.createdAt
+            var shouldStartNewSection = false
+
+            if let lastDate = lastMessageDate {
+                let timeDiff = messageDate.timeIntervalSince(lastDate)
+                // 7200 seconds = 2 hours
+                if timeDiff > 7200 || !messageDate.isSameDay(lastDate) {
+                    shouldStartNewSection = true
+                }
+            } else {
+                // First message always starts a section
+                shouldStartNewSection = true
+            }
+
+            if shouldStartNewSection {
+                if !currentSectionMessages.isEmpty {
+                    // Close previous section
+                    // Use the date of the first message in the section for the header
+                    let sectionDate = currentSectionMessages.first?.createdAt ?? Date()
+                    let items = wrapSectionMessages(currentSectionMessages, chatType: chatType, replyMode: replyMode, isFirstSection: false, isLastSection: false)
+                    result.append(MessagesSection(date: sectionDate, rows: items))
+                }
+                currentSectionMessages = [message]
+            } else {
+                currentSectionMessages.append(message)
+            }
+            lastMessageDate = messageDate
         }
 
-        return result
+        // Append the final section
+        if !currentSectionMessages.isEmpty {
+            let sectionDate = currentSectionMessages.first?.createdAt ?? Date()
+            let items = wrapSectionMessages(currentSectionMessages, chatType: chatType, replyMode: replyMode, isFirstSection: false, isLastSection: false)
+            result.append(MessagesSection(date: sectionDate, rows: items))
+        }
+
+        // Return reversed result because the ChatView expects sections reversed (bottom-up) for conversation mode?
+        // Wait, the original code did `dates.sorted().reversed()`.
+        // If ChatType is .conversation, it renders bottom-up usually.
+        // Let's check `UIList` implementation.
+        // `sections` seem to be iterated in reverse in `UIList.formatSections`.
+        // But `mapMessagesQuoteModeReplies` originally returned them reverse-chronological (newest date first).
+        
+        // Let's stick to the original ordering convention: newest sections first.
+        return result.reversed()
     }
 
     nonisolated static func mapMessagesCommentModeReplies(_ messages: [Message], chatType: ChatType, replyMode: ReplyMode) -> [MessagesSection] {

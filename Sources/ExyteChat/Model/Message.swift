@@ -15,6 +15,7 @@ public struct Message: Identifiable, Hashable, Sendable {
         case read
         case error(DraftMessage)
         case queued
+        case forwarded
 
         public func hash(into hasher: inout Hasher) {
             switch self {
@@ -28,6 +29,8 @@ public struct Message: Identifiable, Hashable, Sendable {
                 return hasher.combine("error")
             case .queued:
                 return hasher.combine("queued")
+            case .forwarded:
+                return hasher.combine("forwarded")
             }
         }
 
@@ -42,6 +45,8 @@ public struct Message: Identifiable, Hashable, Sendable {
             case ( .error(_), .error(_)):
                 return true
             case (.queued, .queued):
+                return true
+            case (.forwarded, .forwarded):
                 return true
             default:
                 return false

@@ -19,8 +19,9 @@ struct MessageStatusView: View {
                     .resizable()
                     .foregroundColor(getTheme().colors.statusGray)
             case .sent:
-                theme.images.message.sent
+                Image(systemName: "arrow.up.circle")
                     .resizable()
+                    .scaledToFit()
                     .foregroundColor(getTheme().colors.messageMyBG)
             case .read:
                 theme.images.message.read
@@ -38,6 +39,11 @@ struct MessageStatusView: View {
                 Image(systemName: "clock.fill")
                     .resizable()
                     .foregroundColor(.yellow)
+            case .forwarded:
+                Image(systemName: "cloud")
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundColor(.gray)
             }
         }
         .viewSize(MessageView.statusViewSize)
